@@ -17,8 +17,8 @@ export async function onRequest(context) {
                 'Access-Control-Allow-Headers': 'Content-Type',
                 'Access-Control-Allow-Credentials': 'true'
 
-            },
-             status: 200
+            }
+           
         })
     }
     const jsonRequest = await request.json();
