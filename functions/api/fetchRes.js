@@ -29,6 +29,8 @@ export async function onRequest(context) {
         //增加跨域头后返回
         const headers = new Headers(response.headers);
         headers.set('Access-Control-Allow-Origin', '*');
+         headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+         headers.set('Access-Control-Allow-Headers', 'Content-Type');
         return new Response(response.body, {
             headers: headers
         })
