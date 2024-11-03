@@ -12,10 +12,13 @@ export async function onRequest(context) {
     if (request.method === 'OPTIONS') {
         return new Response(null, {
             headers: {
-                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Origin': 'https://cesi.jizhang100.us.kg',
                 'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-                'Access-Control-Allow-Headers': 'Content-Type'
-            }
+                'Access-Control-Allow-Headers': 'Content-Type',
+                'Access-Control-Allow-Credentials': 'true'
+
+            },
+             status: 200
         })
     }
     const jsonRequest = await request.json();
@@ -28,7 +31,10 @@ export async function onRequest(context) {
     if (contentType.startsWith('image') || contentType.startsWith('video')) {
         //增加跨域头后返回
         const headers = new Headers(response.headers);
-        headers.set('Access-Control-Allow-Origin', '*');
+        headers.set('Access-Control-Allow-Origin', 'https://cesi.jizhang100.us.kg');
+         headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+        headers.set('Access-Control-Allow-Headers', 'Content-Type');
+        headers.set('Access-Control-Allow-Credentials', 'true');
         return new Response(response.body, {
             headers: headers
         })
