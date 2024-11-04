@@ -138,7 +138,14 @@ export async function onRequestPost(context) {  // Contents of context object
     const headers = new Headers(clonedRequest.headers);
     headers.delete('authCode');
 
-    let res = new Response('upload error, check your environment params!', { status: 400 });
+    let res = new Response('upload error, check your environment params!', { 
+        status: 400,
+        headers: { 
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+        }
+    });
     try {
         const response = await fetch(targetUrl.href, {
             method: clonedRequest.method,
@@ -163,7 +170,12 @@ export async function onRequestPost(context) {  // Contents of context object
                 JSON.stringify([{ 'src': `/file/${fullId}` }]), 
                 {
                     status: 200,
-                    headers: { 'Content-Type': 'application/json' }
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+                        'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+                    }
                 }
             );
         }
@@ -194,6 +206,18 @@ export async function onRequestPost(context) {  // Contents of context object
     } finally {
         return res;
     }
+}
+
+export async function onRequestOptions(context) {
+    return new Response(null, {
+        status: 204,
+        headers: {
+            'Access-Control-Allow-Origin': '*', // 允许所有来源
+            'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+            'Access-Control-Max-Age': '86400', // 预检请求的缓存时间（秒）
+        },
+    });
 }
 
 function getFile(response) {
