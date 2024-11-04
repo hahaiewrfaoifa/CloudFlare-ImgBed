@@ -12,7 +12,7 @@ export async function onRequest(context) {
     if (request.method === 'OPTIONS') {
         return new Response(null, {
             headers: {
-                'Access-Control-Allow-Origin': 'https://cesi.jizhang100.us.kg',
+                'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
                 'Access-Control-Allow-Headers': 'Content-Type',
                 'Access-Control-Allow-Credentials': 'true'
